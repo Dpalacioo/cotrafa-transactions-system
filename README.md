@@ -22,9 +22,9 @@
 | Campo            | Detalle                                    |
 | ---------------- | ------------------------------------------ |
 | Nombre           | Cotrafa Transactions System                |
-| Framework        | Angular 17+                                |
+| Framework        | Angular 19.2.19                            |
 | Arquitectura     | Standalone Components + Clean Architecture |
-| Estilos          | Tailwind CSS                               |
+| Estilos          | Angular Material y Tailwind CSS            |
 | Manejo de Estado | Angular Signals (Planeado)                 |
 | API Pública      | [RandomUser API](https://randomuser.me/)   |
 | Estado           | 🚧 En desarrollo                           |
@@ -74,18 +74,3 @@ Se utiliza una arquitectura basada en capas para garantizar la escalabilidad y f
 | Unit Testing de servicios clave                 | ⏳ Pendiente    |
 
 ---
-
-## 🛠️ Servicios e Implementación
-
-### UsersService (Consumo de API)
-
-Responsable de aislar el contrato externo (DTO) del modelo de dominio interno.
-
-```typescript
-// Ejemplo de método principal
-getUsers(limit = 10): Observable<User[]> {
-  return this.http.get<RandomUserResponse>(`${this.apiUrl}?results=${limit}`).pipe(
-    map(response => this.mapToInternalModel(response.results))
-  );
-}
-```
