@@ -6,11 +6,17 @@ import { TransactionFormComponent } from '../../components/transaction-form/tran
 import { CusEncryptionService } from '../../../../core/services/cus-encryption.service';
 import { Transaction } from '../../../../shared/models';
 import { TransactionsRepository } from '../../../../core/repositories/transactions-repository.service';
+import { TransactionsHistoryComponent } from '../../components/transactions-history/transactions-history.component';
 
 @Component({
   selector: 'app-transactions',
   standalone: true,
-  imports: [CommonModule, UserSelectorComponent, TransactionFormComponent],
+  imports: [
+    CommonModule,
+    UserSelectorComponent,
+    TransactionFormComponent,
+    TransactionsHistoryComponent,
+  ],
   templateUrl: './transactions.component.html',
   styleUrls: ['./transactions.component.scss'],
 })
@@ -46,7 +52,7 @@ export class TransactionsComponent implements OnInit {
 
     // Crear transacción
     const transaction: Transaction = {
-      id: cusOriginal, // puedes usar cusOriginal como ID
+      id: cusOriginal,
       user,
       amount,
       cus: { original: cusOriginal, encrypted: cusEncrypted },

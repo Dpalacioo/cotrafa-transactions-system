@@ -1,1 +1,34 @@
-<p>transactions-history works!</p>
+<section class="p-4 max-w-4xl mx-auto">
+  <h2 class="text-xl font-bold mb-4">Historial de Transacciones</h2>
+
+  <ng-container *ngIf="transactions().length; else noTransactions">
+    <div class="overflow-x-auto">
+      <table class="table-auto min-w-full border border-gray-300">
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="w-1/4 border px-3 py-2 text-left">Usuario</th>
+            <th class="w-1/4 border px-3 py-2 text-right">Monto</th>
+            <th class="w-1/4 border px-3 py-2 text-left">CUS</th>
+            <th class="w-1/4 border px-3 py-2 text-left">Fecha</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tx of transactions()" class="hover:bg-gray-50">
+            <td class="border px-3 py-2">{{ tx.user.name }}</td>
+            <td class="border px-3 py-2 text-right">
+              {{ tx.amount | currency : "COP" : "$" : "1.0-0" }}
+            </td>
+            <td class="border px-3 py-2">{{ tx.cus.encrypted }}</td>
+            <td class="border px-3 py-2">
+              {{ tx.createdAt | date : "medium" }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+
+  <ng-template #noTransactions>
+    <p class="text-gray-500 mt-2">No se han realizado transacciones aún.</p>
+  </ng-template>
+</section>

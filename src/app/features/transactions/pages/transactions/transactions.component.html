@@ -17,6 +17,8 @@
     ></app-transaction-form>
   </ng-template>
 
+  <app-transactions-history></app-transactions-history>
+
   <p *ngIf="usersStore.error()" class="text-red-500 mt-2">
     {{ usersStore.error() }}
   </p>
