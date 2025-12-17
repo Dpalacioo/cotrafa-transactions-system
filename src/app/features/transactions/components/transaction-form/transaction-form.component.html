@@ -1,0 +1,36 @@
+<div>
+  <form
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+    class="mt-6 p-4 border rounded-lg bg-white shadow space-y-4"
+  >
+    <div>
+      <label class="block text-sm font-medium mb-1">
+        Monto de la transacción
+      </label>
+
+      <input
+        type="text"
+        formControlName="amount"
+        class="w-full border rounded px-3 py-2"
+        placeholder="Ingrese el monto"
+        (input)="onAmountInput($event)"
+      />
+
+      <p
+        *ngIf="form.get('amount')?.invalid && form.get('amount')?.touched"
+        class="text-sm text-red-500 mt-1"
+      >
+        El monto es obligatorio y debe ser mayor a 0
+      </p>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="form.invalid"
+      class="w-full bg-blue-600 text-white py-2 rounded disabled:opacity-50"
+    >
+      Simular Transacción
+    </button>
+  </form>
+</div>
