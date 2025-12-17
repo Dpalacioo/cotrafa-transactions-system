@@ -1,0 +1,16 @@
+<div class="mb-6">
+  <h2 class="text-lg font-semibold mb-2">
+    Seleccionar usuario
+  </h2>
+
+  <ul class="space-y-2">
+    <li
+      *ngFor="let user of users"
+      class="p-3 border rounded cursor-pointer hover:bg-gray-100"
+      (click)="selectUser(user.id)"
+    >
+      <p class="font-medium">{{ user.name }}</p>
+      <p class="text-sm text-gray-500">{{ user.email }}</p>
+    </li>
+  </ul>
+</div>
