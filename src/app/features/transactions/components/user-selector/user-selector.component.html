@@ -2,7 +2,14 @@
   <h2 class="text-lg font-semibold mb-2 text-textLight dark:text-textDark">
     Seleccionar usuario
   </h2>
-
+  <div class="mb-4">
+    <input
+      type="text"
+      placeholder="Buscar usuario por nombre, email o ciudad."
+      class="w-1/2 px-4 py-2 border rounded-lg bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 text-textLight dark:text-textDark focus:outline-none focus:ring-2 focus:ring-primary"
+      (input)="onSearch($event)"
+    />
+  </div>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
     <div
       *ngFor="let user of paginatedUsers"
