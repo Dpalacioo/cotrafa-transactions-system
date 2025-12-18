@@ -17,9 +17,12 @@
   </ng-template>
 
   <div
+    *ngIf="hasTransactions()"
     class="rounded-lg shadow p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700"
   >
-    <app-transactions-history></app-transactions-history>
+    <app-transactions-history
+      (transactionsChanged)="checkForTransactions()"
+    ></app-transactions-history>
   </div>
 
   <p *ngIf="usersStore.error()" class="mt-2 text-red-600 dark:text-red-400">

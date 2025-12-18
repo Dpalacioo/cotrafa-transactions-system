@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TransactionsRepository } from '../../../../core/repositories/transactions-repository.service';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrls: ['./transactions-history.component.scss'],
 })
 export class TransactionsHistoryComponent {
+  @Output() transactionsChanged = new EventEmitter<void>();
   toastMessage: string | null = null;
   showDeleteModal = false;
   transactionToDelete: string | null = null;
@@ -34,6 +35,9 @@ export class TransactionsHistoryComponent {
   confirmDelete(): void {
     if (this.transactionToDelete) {
       this.transactionsRepo.delete(this.transactionToDelete);
+      setTimeout(() => {
+        this.transactionsChanged.emit();
+      }, 0);
     }
 
     this.closeModal();

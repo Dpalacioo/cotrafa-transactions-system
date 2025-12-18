@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UsersStore } from '../../../../core/store/users.store';
 import { UserSelectorComponent } from '../../components/user-selector/user-selector.component';
@@ -20,6 +20,7 @@ export class TransactionsComponent implements OnInit {
     string,
     { encrypted: string; original: string }
   > = new Map();
+  hasTransactions = signal(false);
 
   constructor(
     public usersStore: UsersStore,
@@ -29,6 +30,14 @@ export class TransactionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.usersStore.loadUsers();
+    this.checkForTransactions();
+  }
+
+  checkForTransactions(): void {
+    const storedTransactions = localStorage.getItem('transactions');
+    this.hasTransactions.set(
+      !!storedTransactions && storedTransactions !== '[]'
+    );
   }
 
   onUserSelected(userId: string): void {
@@ -77,7 +86,7 @@ export class TransactionsComponent implements OnInit {
 
     // Guardar en repositorio local
     this.transactionsRepo.save(transaction);
-
+    this.hasTransactions.set(true);
     // Limpiar selección
     this.selectedUserId = null;
   }
