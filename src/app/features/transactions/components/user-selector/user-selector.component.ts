@@ -84,4 +84,8 @@ export class UserSelectorComponent implements OnInit, OnChanges {
     this.selectedUserId = userId;
     this.userSelected.emit(userId);
   }
+
+  trackByUserId(index: number, user: User): string {
+    return user.id;
+  }
 }
