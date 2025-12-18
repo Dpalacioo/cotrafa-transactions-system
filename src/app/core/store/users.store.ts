@@ -19,7 +19,7 @@ export class UsersStore {
   constructor(private usersService: UsersService) {}
 
   //  Acción: cargar usuarios desde la API
-  loadUsers(limit = 50): void {
+  loadUsers(limit = 60): void {
     this._loading.set(true);
     this._error.set(null);
 

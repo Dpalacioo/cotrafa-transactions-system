@@ -44,7 +44,7 @@ export class UserSelectorComponent implements OnInit, OnChanges {
   currentPage = 1;
   pageSize = 10;
   totalPages = 0;
-  pages: number[] = [];
+  pages: (number | string)[] = [];
 
   searchTerm = '';
   selectedUserId: string | null = null;
@@ -92,14 +92,71 @@ export class UserSelectorComponent implements OnInit, OnChanges {
 
   updatePagination(): void {
     this.totalPages = Math.ceil(this.filteredUsers.length / this.pageSize);
-    this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+    this.pages = this.generatePaginationArray();
 
     const start = (this.currentPage - 1) * this.pageSize;
     const end = start + this.pageSize;
     this.paginatedUsers = this.filteredUsers.slice(start, end);
   }
 
-  goToPage(page: number): void {
+  generatePaginationArray(): (number | string)[] {
+    const maxVisiblePages = 5;
+    const pages: (number | string)[] = [];
+
+    if (this.totalPages <= maxVisiblePages) {
+      // Mostrar todas las páginas si hay 5 o menos
+      for (let i = 1; i <= this.totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      // Siempre mostrar la primera página
+      pages.push(1);
+
+      let start: number;
+      let end: number;
+
+      if (this.currentPage <= 3) {
+        // Caso 1: Estamos cerca del inicio (páginas 1-3)
+        start = 2;
+        end = Math.min(4, this.totalPages - 1);
+        for (let i = start; i <= end; i++) {
+          pages.push(i);
+        }
+        if (end < this.totalPages - 1) {
+          pages.push('...');
+        }
+      } else if (this.currentPage >= this.totalPages - 2) {
+        // Caso 2: Estamos cerca del final
+        pages.push('...');
+        start = Math.max(this.totalPages - 3, 2);
+        end = this.totalPages - 1;
+        for (let i = start; i <= end; i++) {
+          pages.push(i);
+        }
+      } else {
+        // Caso 3: Estamos en el medio
+        pages.push('...');
+        start = this.currentPage - 1;
+        end = this.currentPage + 1;
+        for (let i = start; i <= end; i++) {
+          pages.push(i);
+        }
+        pages.push('...');
+      }
+
+      // Siempre mostrar la última página
+      pages.push(this.totalPages);
+    }
+
+    return pages;
+  }
+
+  goToPage(page: number | string): void {
+    // Ignorar si es string (los puntos suspensivos)
+    if (typeof page !== 'number') {
+      return;
+    }
+
     if (page < 1 || page > this.totalPages) return;
 
     this.currentPage = page;
