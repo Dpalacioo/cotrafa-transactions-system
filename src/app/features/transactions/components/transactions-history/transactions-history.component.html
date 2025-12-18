@@ -1,5 +1,5 @@
 <section class="p-4 max-w-4xl mx-auto">
-  <h2 class="text-xl font-bold mb-4 text-textLight dark:text-textDark">
+  <h2 class="text-xl font-bold mb-4 text-gray-900 dark:text-gray-100">
     Historial de Transacciones
   </h2>
 
@@ -8,7 +8,9 @@
       class="overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700"
     >
       <table class="min-w-full text-sm">
-        <thead class="bg-gray-100 dark:bg-gray-800">
+        <thead
+          class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+        >
           <tr>
             <th class="px-3 py-2 text-left font-semibold">Usuario</th>
             <th class="px-3 py-2 text-right font-semibold">Monto</th>
@@ -21,7 +23,7 @@
         <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
           <tr
             *ngFor="let tx of transactions()"
-            class="hover:bg-gray-50 dark:hover:bg-gray-800 transition"
+            class="hover:bg-gray-50 dark:hover:bg-gray-800 transition text-gray-900 dark:text-gray-100"
           >
             <!-- Usuario -->
             <td class="px-3 py-2 truncate max-w-[160px]">
@@ -37,7 +39,7 @@
             <td class="px-3 py-2 max-w-[220px]">
               <div class="flex items-center gap-2">
                 <span
-                  class="truncate font-mono text-xs text-gray-600 dark:text-gray-400"
+                  class="truncate font-mono text-xs text-gray-900 dark:text-gray-100"
                   title="{{ tx.cus.encrypted }}"
                 >
                   {{ tx.cus.encrypted }}
@@ -46,7 +48,7 @@
                 <button
                   (click)="copyCus(tx.cus.encrypted)"
                   title="Copiar CUS"
-                  class="text-gray-400 hover:text-primary transition flex items-center gap-1 p-2"
+                  class="text-gray-900 dark:text-gray-100 hover:text-primary transition flex items-center gap-1 p-2"
                 >
                   <mat-icon class="!h-7 !w-7">content_copy</mat-icon>
                 </button>
@@ -55,7 +57,7 @@
 
             <!-- Fecha -->
             <td
-              class="px-3 py-2 whitespace-nowrap text-gray-600 dark:text-gray-400"
+              class="px-3 py-2 whitespace-nowrap text-gray-900 dark:text-gray-100"
             >
               {{ tx.createdAt | date : "dd/MM/yyyy HH:mm" }}
             </td>

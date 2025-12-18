@@ -1,20 +1,12 @@
-<section class="p-4 bg-bgLight dark:bg-bgDark max-w-4xl mx-auto space-y-6">
-  <h1 class="text-2xl font-bold text-textLight dark:text-textDark mb-4">
-    Simulación de Transacciones
-  </h1>
-
-  <div *ngIf="usersStore.users()">
-    <p class="text-sm text-gray-500">
-      Usuarios cargados: {{ usersStore.users().length }}
-    </p>
-  </div>
-
+<section class="p-4 max-w-4xl mx-auto space-y-6 bg-bgLight dark:bg-bgDark">
   <ng-container *ngIf="usersStore.loading(); else usersContent">
-    <p class="text-gray-500 dark:text-gray-400">Cargando usuarios...</p>
+    <p class="text-gray-600 dark:text-gray-400">Cargando usuarios...</p>
   </ng-container>
 
   <ng-template #usersContent>
-    <div class="bg-bgLight dark:bg-bgDark rounded-lg shadow p-4">
+    <div
+      class="rounded-lg shadow p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700"
+    >
       <app-user-selector
         [users]="usersStore.users()"
         (userSelected)="onUserSelected($event)"
@@ -22,8 +14,8 @@
     </div>
 
     <div
-      class="bg-bgLight dark:bg-bgDark rounded-lg shadow p-4 mt-4"
       *ngIf="selectedUserId"
+      class="rounded-lg shadow p-4 mt-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700"
     >
       <app-transaction-form
         (submitTransaction)="onTransactionSubmit($event)"
@@ -37,11 +29,13 @@
     [originalCus]="lastTransactionCus.original"
   ></app-transaction-result>
 
-  <div class="bg-bgLight dark:bg-bgDark rounded-lg shadow p-4">
+  <div
+    class="rounded-lg shadow p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700"
+  >
     <app-transactions-history></app-transactions-history>
   </div>
 
-  <p *ngIf="usersStore.error()" class="text-red-500 mt-2">
+  <p *ngIf="usersStore.error()" class="mt-2 text-red-600 dark:text-red-400">
     {{ usersStore.error() }}
   </p>
 </section>
