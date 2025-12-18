@@ -104,14 +104,31 @@
           *ngIf="selectedUserId === user.id"
           class="rounded-lg shadow p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 mt-2"
         >
+          <!-- Formulario solo visible si NO hay transacción reciente Y el usuario lo activó -->
           <app-transaction-form
+            *ngIf="shouldShowForm(user.id)"
             (submitTransaction)="onTransactionSubmit($event, user.id)"
           ></app-transaction-form>
+
+          <!-- Resultado solo visible SI hay transacción reciente -->
           <app-transaction-result
-            *ngIf="getUserLastCus(user.id)"
+            *ngIf="getUserLastCus(user.id) && !shouldShowForm(user.id)"
             [encryptedCus]="getUserLastCus(user.id)!.encrypted"
             [originalCus]="getUserLastCus(user.id)!.original"
           ></app-transaction-result>
+
+          <!-- Botón para nueva transacción (solo visible cuando hay resultado y no se está mostrando el formulario) -->
+          <div
+            *ngIf="shouldShowNewTransactionButton(user.id)"
+            class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700"
+          >
+            <button
+              (click)="startNewTransaction(user.id)"
+              class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+            >
+              Nueva transacción
+            </button>
+          </div>
         </div>
       </div>
     </mat-expansion-panel>
@@ -160,5 +177,11 @@
         Siguiente
       </button>
     </nav>
+  </div>
+  <div
+    *ngIf="toastMessage"
+    class="fixed bottom-4 right-4 bg-green-900 text-white px-4 py-2 rounded-lg shadow-lg text-sm animate-fade-in z-50"
+  >
+    {{ toastMessage }}
   </div>
 </div>

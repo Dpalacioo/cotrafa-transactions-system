@@ -31,7 +31,7 @@ export class UserSelectorComponent implements OnInit, OnChanges {
   @Input() userLastTransactionCus: Map<
     string,
     { encrypted: string; original: string }
-  > = new Map(); // <-- AGREGAR ESTA LÍNEA
+  > = new Map();
   @Output() userSelected = new EventEmitter<string>();
   @Output() transactionSubmit = new EventEmitter<{
     amount: number;
@@ -49,6 +49,10 @@ export class UserSelectorComponent implements OnInit, OnChanges {
   searchTerm = '';
   selectedUserId: string | null = null;
 
+  usersWithFormVisible = new Set<string>();
+
+  toastMessage: string | null = null;
+
   ngOnInit(): void {
     this.filteredUsers = [...this.users];
     this.updatePagination();
@@ -57,6 +61,12 @@ export class UserSelectorComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['users']) {
       this.applyFilter();
+    }
+
+    // Se ejecuta al cambiar de pestaña)
+    if (changes['userLastTransactionCus']) {
+      this.usersWithFormVisible.clear();
+      this.selectedUserId = null;
     }
   }
 
@@ -82,12 +92,10 @@ export class UserSelectorComponent implements OnInit, OnChanges {
 
   updatePagination(): void {
     this.totalPages = Math.ceil(this.filteredUsers.length / this.pageSize);
-
     this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
 
     const start = (this.currentPage - 1) * this.pageSize;
     const end = start + this.pageSize;
-
     this.paginatedUsers = this.filteredUsers.slice(start, end);
   }
 
@@ -99,18 +107,63 @@ export class UserSelectorComponent implements OnInit, OnChanges {
   }
 
   selectUser(userId: string): void {
-    this.selectedUserId = userId;
+    // Si ya estaba seleccionado, Se quita selección
+    if (this.selectedUserId === userId) {
+      this.selectedUserId = null;
+      this.usersWithFormVisible.delete(userId);
+    } else {
+      this.selectedUserId = userId;
+      // Solo se muestra el formulario si no hay transacción reciente
+      if (!this.getUserLastCus(userId)) {
+        this.usersWithFormVisible.add(userId);
+      }
+    }
     this.userSelected.emit(userId);
   }
 
   onTransactionSubmit(amount: number, userId: string): void {
     this.transactionSubmit.emit({ amount, userId });
+    // Se oculta el formulario después de enviar
+    this.usersWithFormVisible.delete(userId);
+
+    this.showToast('Transacción guardada correctamente');
+  }
+
+  // Para iniciar una nueva transacción
+  startNewTransaction(userId: string): void {
+    // Se limpia la transacción actual para este usuario
+    this.userLastTransactionCus.delete(userId);
+    // Se muestra el formulario
+    this.usersWithFormVisible.add(userId);
   }
 
   getUserLastCus(
     userId: string
   ): { encrypted: string; original: string } | undefined {
     return this.userLastTransactionCus.get(userId);
+  }
+
+  // Para verificar si el formulario debe mostrarse
+  shouldShowForm(userId: string): boolean {
+    return (
+      this.usersWithFormVisible.has(userId) && !this.getUserLastCus(userId)
+    );
+  }
+
+  // Para verificar si debe mostrarse el botón "Nueva transacción"
+  shouldShowNewTransactionButton(userId: string): boolean {
+    return (
+      this.getUserLastCus(userId) !== undefined &&
+      !this.usersWithFormVisible.has(userId)
+    );
+  }
+
+  showToast(message: string): void {
+    this.toastMessage = message;
+
+    setTimeout(() => {
+      this.toastMessage = null;
+    }, 2000);
   }
 
   trackByUserId(index: number, user: User): string {
