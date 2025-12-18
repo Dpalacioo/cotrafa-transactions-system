@@ -9,25 +9,12 @@
     >
       <app-user-selector
         [users]="usersStore.users()"
+        [userLastTransactionCus]="userLastTransactionsCus"
         (userSelected)="onUserSelected($event)"
+        (transactionSubmit)="onTransactionSubmitFromSelector($event)"
       ></app-user-selector>
     </div>
-
-    <div
-      *ngIf="selectedUserId"
-      class="rounded-lg shadow p-4 mt-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700"
-    >
-      <app-transaction-form
-        (submitTransaction)="onTransactionSubmit($event)"
-      ></app-transaction-form>
-    </div>
   </ng-template>
-
-  <app-transaction-result
-    *ngIf="lastTransactionCus"
-    [encryptedCus]="lastTransactionCus.encrypted"
-    [originalCus]="lastTransactionCus.original"
-  ></app-transaction-result>
 
   <div
     class="rounded-lg shadow p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700"

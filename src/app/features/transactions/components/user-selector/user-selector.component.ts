@@ -9,22 +9,40 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { User } from '../../../../shared/models';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { TransactionFormComponent } from '../transaction-form/transaction-form.component';
+import { TransactionResultComponent } from '../transaction-result/transaction-result.component';
 
 @Component({
   selector: 'app-user-selector',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    MatExpansionModule,
+    MatIconModule,
+    TransactionFormComponent,
+    TransactionResultComponent,
+  ],
   templateUrl: './user-selector.component.html',
 })
 export class UserSelectorComponent implements OnInit, OnChanges {
   @Input({ required: true }) users: User[] = [];
+  @Input() userLastTransactionCus: Map<
+    string,
+    { encrypted: string; original: string }
+  > = new Map(); // <-- AGREGAR ESTA LÍNEA
   @Output() userSelected = new EventEmitter<string>();
+  @Output() transactionSubmit = new EventEmitter<{
+    amount: number;
+    userId: string;
+  }>();
 
   paginatedUsers: User[] = [];
   filteredUsers: User[] = [];
 
   currentPage = 1;
-  pageSize = 12;
+  pageSize = 10;
   totalPages = 0;
   pages: number[] = [];
 
@@ -83,6 +101,16 @@ export class UserSelectorComponent implements OnInit, OnChanges {
   selectUser(userId: string): void {
     this.selectedUserId = userId;
     this.userSelected.emit(userId);
+  }
+
+  onTransactionSubmit(amount: number, userId: string): void {
+    this.transactionSubmit.emit({ amount, userId });
+  }
+
+  getUserLastCus(
+    userId: string
+  ): { encrypted: string; original: string } | undefined {
+    return this.userLastTransactionCus.get(userId);
   }
 
   trackByUserId(index: number, user: User): string {
