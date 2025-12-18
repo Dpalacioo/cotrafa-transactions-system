@@ -31,6 +31,12 @@
     </div>
   </ng-template>
 
+  <app-transaction-result
+    *ngIf="lastTransactionCus"
+    [encryptedCus]="lastTransactionCus.encrypted"
+    [originalCus]="lastTransactionCus.original"
+  ></app-transaction-result>
+
   <div class="bg-bgLight dark:bg-bgDark rounded-lg shadow p-4">
     <app-transactions-history></app-transactions-history>
   </div>

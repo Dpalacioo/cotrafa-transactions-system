@@ -7,6 +7,7 @@ import { CusEncryptionService } from '../../../../core/services/cus-encryption.s
 import { Transaction } from '../../../../shared/models';
 import { TransactionsRepository } from '../../../../core/repositories/transactions-repository.service';
 import { TransactionsHistoryComponent } from '../../components/transactions-history/transactions-history.component';
+import { TransactionResultComponent } from '../../components/transaction-result/transaction-result.component';
 
 @Component({
   selector: 'app-transactions',
@@ -16,12 +17,17 @@ import { TransactionsHistoryComponent } from '../../components/transactions-hist
     UserSelectorComponent,
     TransactionFormComponent,
     TransactionsHistoryComponent,
+    TransactionResultComponent,
   ],
   templateUrl: './transactions.component.html',
   styleUrls: ['./transactions.component.scss'],
 })
 export class TransactionsComponent implements OnInit {
   selectedUserId: string | null = null;
+  lastTransactionCus: {
+    encrypted: string;
+    original: string;
+  } | null = null;
 
   constructor(
     public usersStore: UsersStore,
@@ -49,6 +55,11 @@ export class TransactionsComponent implements OnInit {
     // Generar CUS
     const cusOriginal = this.cusService.generateCus(user.id);
     const cusEncrypted = this.cusService.encrypt(cusOriginal);
+
+    this.lastTransactionCus = {
+      original: cusOriginal,
+      encrypted: cusEncrypted,
+    };
 
     // Crear transacción
     const transaction: Transaction = {
