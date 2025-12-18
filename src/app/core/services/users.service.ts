@@ -8,6 +8,9 @@ interface RandomUserResponse {
     login: { uuid: string };
     name: { first: string; last: string };
     email: string;
+    location: { city: string; country: string };
+    phone: string;
+    picture: { thumbnail: string; medium: string; large: string };
   }>;
 }
 
@@ -19,7 +22,7 @@ export class UsersService {
 
   constructor(private http: HttpClient) {}
 
-  getUsers(limit = 10): Observable<User[]> {
+  getUsers(limit = 100): Observable<User[]> {
     return this.http
       .get<RandomUserResponse>(`${this.apiUrl}?results=${limit}`)
       .pipe(
@@ -28,6 +31,10 @@ export class UsersService {
             id: user.login.uuid,
             name: `${user.name.first} ${user.name.last}`,
             email: user.email,
+            city: user.location.city,
+            country: user.location.country,
+            phone: user.phone,
+            picture: user.picture.thumbnail,
           }))
         )
       );

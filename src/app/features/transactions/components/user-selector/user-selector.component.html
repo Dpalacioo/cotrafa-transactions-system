@@ -1,16 +1,70 @@
 <div class="mb-6">
-  <h2 class="text-lg font-semibold mb-2">
+  <h2 class="text-lg font-semibold mb-2 text-textLight dark:text-textDark">
     Seleccionar usuario
   </h2>
 
-  <ul class="space-y-2">
-    <li
-      *ngFor="let user of users"
-      class="p-3 border rounded cursor-pointer hover:bg-gray-100"
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div
+      *ngFor="let user of paginatedUsers"
+      class="flex items-center p-4 cursor-pointer bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow hover:shadow-lg transition-shadow"
       (click)="selectUser(user.id)"
     >
-      <p class="font-medium">{{ user.name }}</p>
-      <p class="text-sm text-gray-500">{{ user.email }}</p>
-    </li>
-  </ul>
+      <img
+        *ngIf="user.picture"
+        [src]="user.picture"
+        alt="{{ user.name }}"
+        class="w-12 h-12 rounded-full mr-4 flex-shrink-0"
+      />
+      <div class="flex-1 min-w-0">
+        <p class="font-medium text-textLight dark:text-textDark truncate">
+          {{ user.name }}
+        </p>
+        <p class="text-sm text-gray-500 dark:text-gray-400 truncate">
+          {{ user.email }}
+        </p>
+        <p class="text-sm text-gray-500 dark:text-gray-400 truncate">
+          {{ user.city }}, {{ user.country }} | {{ user.phone }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <div
+    class="flex flex-col md:flex-row md:items-center md:justify-between mt-4"
+  >
+    <div class="mb-2 md:mb-0 text-gray-700 dark:text-gray-300">
+      Showing
+      {{ (currentPage - 1) * pageSize + 1 }}
+      to
+      {{ (currentPage - 1) * pageSize + paginatedUsers.length }}
+      of {{ users.length }} results
+    </div>
+
+    <nav class="inline-flex -space-x-px" aria-label="Pagination">
+      <button
+        (click)="goToPage(currentPage - 1)"
+        [disabled]="currentPage === 1"
+        class="px-3 py-1 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+      >
+        Previous
+      </button>
+
+      <button
+        *ngFor="let page of pages"
+        (click)="goToPage(page)"
+        [class.bg-primary]="currentPage === page"
+        [class.text-white]="currentPage === page"
+        class="px-3 py-1 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+      >
+        {{ page }}
+      </button>
+
+      <button
+        (click)="goToPage(currentPage + 1)"
+        [disabled]="currentPage === totalPages"
+        class="px-3 py-1 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+      >
+        Next
+      </button>
+    </nav>
+  </div>
 </div>

@@ -61,7 +61,6 @@ export class TransactionsComponent implements OnInit {
 
     // Guardar en repositorio local
     this.transactionsRepo.save(transaction);
-    console.log(this.transactionsRepo.getAll());
 
     // Limpiar selección
     this.selectedUserId = null;
