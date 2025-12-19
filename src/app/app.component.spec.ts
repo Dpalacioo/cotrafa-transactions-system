@@ -1,10 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { provideRouter } from '@angular/router';
+import { provideLocationMocks } from '@angular/common/testing';
+import { Component } from '@angular/core';
+
+@Component({ standalone: true, template: '' })
+class MockLayoutComponent {}
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [AppComponent, TranslateModule.forRoot(), MockLayoutComponent],
+      providers: [provideRouter([]), provideLocationMocks()],
     }).compileComponents();
   });
 
@@ -14,16 +22,9 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'cotrafa-transactions-system' title`, () => {
+  it(`should have the 'Cotrafa Transactions System' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('cotrafa-transactions-system');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, cotrafa-transactions-system');
+    expect(app.title).toEqual('Cotrafa Transactions System');
   });
 });
