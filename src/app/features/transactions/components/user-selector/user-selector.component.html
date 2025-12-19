@@ -1,15 +1,26 @@
 <div class="mb-6">
-  <h2 class="text-lg font-semibold mb-2 text-gray-900 dark:text-gray-100">
-    {{ "USER_SELECTION.TITLE" | translate }}
-  </h2>
+  <div class="mb-6">
+    <div
+      class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4"
+    >
+      <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
+        {{ "USER_SELECTION.TITLE" | translate }}
+      </h2>
 
-  <div class="mb-4">
-    <input
-      type="text"
-      placeholder="{{ 'USER_SELECTION.SEARCH_PLACEHOLDER' | translate }}"
-      class="w-full md:w-1/2 px-4 py-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-      (input)="onSearch($event)"
-    />
+      <div class="relative w-full md:w-1/2">
+        <input
+          type="text"
+          placeholder="{{ 'USER_SELECTION.SEARCH_PLACEHOLDER' | translate }}"
+          class="w-full pl-4 pr-10 py-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 text-sm"
+          (input)="onSearch($event)"
+        />
+        <div
+          class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500"
+        >
+          <mat-icon class="!h-4 !w-4">search</mat-icon>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div
@@ -107,7 +118,7 @@
       <div class="bg-gray-50 dark:bg-gray-800/50">
         <div
           *ngIf="selectedUserId === user.id"
-          class="rounded-lg shadow p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 mt-2"
+          class="rounded-lg shadow p-4 mt-2"
         >
           <app-transaction-form
             *ngIf="shouldShowForm(user.id)"

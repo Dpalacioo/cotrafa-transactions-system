@@ -8,7 +8,7 @@
       [class.w-0]="collapsed"
       [class.overflow-hidden]="collapsed"
     >
-      Menú
+      {{ "MENU.MENU" | translate }}
     </h2>
 
     <button
@@ -107,8 +107,8 @@
       >
         {{
           themeService.theme() === "dark"
-            ? ("APP.SWITCH_TO_LIGHT" | translate)
-            : ("APP.SWITCH_TO_DARK" | translate)
+            ? ("APP.LIGHT" | translate)
+            : ("APP.DARK" | translate)
         }}
       </span>
     </button>

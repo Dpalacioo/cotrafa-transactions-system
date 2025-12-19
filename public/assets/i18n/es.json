@@ -7,7 +7,7 @@
   },
   "USER_SELECTION": {
     "TITLE": "Seleccionar usuario",
-    "SEARCH_PLACEHOLDER": "Buscar usuario por nombre, email o ciudad.",
+    "SEARCH_PLACEHOLDER": "Buscar.",
     "NO_RESULTS": "No hay resultados para la búsqueda actual",
     "TABLE_HEADERS": {
       "USER": "Usuario",
@@ -79,6 +79,7 @@
     "DEVELOPED_BY": "Desarrollado por Daniel Palacio"
   },
   "MENU": {
+    "MENU": "Menú",
     "TRANSACTIONS": "Transacciones",
     "HISTORY": "Historial",
     "CONFIGURATION": "Configuración",
