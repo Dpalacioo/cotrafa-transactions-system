@@ -1,6 +1,8 @@
 <section class="p-4 max-w-4xl mx-auto space-y-6 bg-bgLight dark:bg-bgDark">
   <ng-container *ngIf="usersStore.loading(); else usersContent">
-    <p class="text-gray-600 dark:text-gray-400">Cargando usuarios...</p>
+    <p class="text-gray-600 dark:text-gray-400">
+      {{ "TRANSACTIONS.LOADING" | translate }}
+    </p>
   </ng-container>
 
   <ng-template #usersContent>

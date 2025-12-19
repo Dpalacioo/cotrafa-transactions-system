@@ -1,6 +1,6 @@
 <section class="p-4 max-w-4xl mx-auto">
   <h2 class="text-xl font-bold mb-4 text-gray-900 dark:text-gray-100">
-    Historial de Transacciones
+    {{ "TRANSACTION_HISTORY.TITLE" | translate }}
   </h2>
 
   <ng-container *ngIf="transactions().length; else noTransactions">
@@ -12,11 +12,21 @@
           class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100"
         >
           <tr>
-            <th class="px-3 py-2 text-left font-semibold">Usuario</th>
-            <th class="px-3 py-2 text-right font-semibold">Monto</th>
-            <th class="px-3 py-2 text-left font-semibold">CUS</th>
-            <th class="px-3 py-2 text-left font-semibold">Fecha</th>
-            <th class="px-3 py-2 text-center font-semibold">Acciones</th>
+            <th class="px-3 py-2 text-left font-semibold">
+              {{ "TRANSACTION_HISTORY.TABLE_HEADERS.USER" | translate }}
+            </th>
+            <th class="px-3 py-2 text-right font-semibold">
+              {{ "TRANSACTION_HISTORY.TABLE_HEADERS.AMOUNT" | translate }}
+            </th>
+            <th class="px-3 py-2 text-left font-semibold">
+              {{ "TRANSACTION_HISTORY.TABLE_HEADERS.CUS" | translate }}
+            </th>
+            <th class="px-3 py-2 text-left font-semibold">
+              {{ "TRANSACTION_HISTORY.TABLE_HEADERS.DATE" | translate }}
+            </th>
+            <th class="px-3 py-2 text-center font-semibold">
+              {{ "TRANSACTION_HISTORY.TABLE_HEADERS.ACTIONS" | translate }}
+            </th>
           </tr>
         </thead>
 
@@ -37,14 +47,16 @@
               <div class="flex items-center gap-2">
                 <span
                   class="truncate font-mono text-xs text-gray-900 dark:text-gray-100"
-                  title="{{ tx.cus.encrypted }}"
+                  [attr.title]="tx.cus.encrypted"
                 >
                   {{ tx.cus.encrypted }}
                 </span>
 
                 <button
                   (click)="copyCus(tx.cus.encrypted)"
-                  title="Copiar CUS"
+                  [attr.title]="
+                    'TRANSACTION_HISTORY.ACTIONS.COPY_CUS' | translate
+                  "
                   class="text-gray-900 dark:text-gray-100 hover:text-primary transition flex items-center gap-1 p-2"
                 >
                   <mat-icon class="!h-7 !w-7">content_copy</mat-icon>
@@ -61,7 +73,9 @@
             <td class="px-3 py-2 text-center">
               <button
                 (click)="openDeleteModal(tx.id)"
-                title="Eliminar transacción"
+                [attr.title]="
+                  'TRANSACTION_HISTORY.ACTIONS.DELETE_TRANSACTION' | translate
+                "
                 class="text-red-500 hover:text-red-700 transition"
               >
                 <mat-icon class="!h-5 !w-5">delete</mat-icon>
@@ -75,15 +89,17 @@
 
   <ng-template #noTransactions>
     <p class="text-gray-500 mt-2 text-center">
-      No se han realizado transacciones aún.
+      {{ "TRANSACTION_HISTORY.NO_TRANSACTIONS" | translate }}
     </p>
   </ng-template>
+
   <div
     *ngIf="toastMessage"
     class="fixed bottom-4 right-4 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg text-sm animate-fade-in"
   >
     {{ toastMessage }}
   </div>
+
   <div
     *ngIf="showDeleteModal"
     class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
@@ -92,12 +108,11 @@
       class="bg-white dark:bg-gray-900 rounded-lg shadow-lg w-full max-w-sm p-6 animate-fade-in"
     >
       <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">
-        Confirmar eliminación
+        {{ "TRANSACTION_HISTORY.DELETE_MODAL.TITLE" | translate }}
       </h3>
 
       <p class="text-sm text-gray-600 dark:text-gray-400 mb-6">
-        ¿Estás seguro de que deseas eliminar esta transacción? Esta acción no se
-        puede deshacer.
+        {{ "TRANSACTION_HISTORY.DELETE_MODAL.MESSAGE" | translate }}
       </p>
 
       <div class="flex justify-end gap-3">
@@ -105,14 +120,14 @@
           (click)="closeModal()"
           class="px-4 py-2 text-sm rounded-md border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
         >
-          Cancelar
+          {{ "TRANSACTION_HISTORY.DELETE_MODAL.CANCEL" | translate }}
         </button>
 
         <button
           (click)="confirmDelete()"
           class="px-4 py-2 text-sm rounded-md bg-red-600 text-white hover:bg-red-700 transition"
         >
-          Eliminar
+          {{ "TRANSACTION_HISTORY.DELETE_MODAL.DELETE" | translate }}
         </button>
       </div>
     </div>

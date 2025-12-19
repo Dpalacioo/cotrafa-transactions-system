@@ -2,11 +2,12 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TransactionsRepository } from '../../../../core/repositories/transactions-repository.service';
 import { MatIconModule } from '@angular/material/icon';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-transactions-history',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, TranslateModule],
   templateUrl: './transactions-history.component.html',
   styleUrls: ['./transactions-history.component.scss'],
 })
@@ -16,7 +17,10 @@ export class TransactionsHistoryComponent {
   showDeleteModal = false;
   transactionToDelete: string | null = null;
 
-  constructor(private transactionsRepo: TransactionsRepository) {}
+  constructor(
+    private transactionsRepo: TransactionsRepository,
+    private translate: TranslateService
+  ) {}
 
   get transactions() {
     return this.transactionsRepo.transactions;
@@ -24,7 +28,8 @@ export class TransactionsHistoryComponent {
 
   copyCus(cus: string): void {
     navigator.clipboard.writeText(cus);
-    this.showToast('CUS copiado.');
+    const message = this.translate.instant('TRANSACTION_HISTORY.TOAST.COPIED');
+    this.showToast(message);
   }
 
   openDeleteModal(id: string): void {

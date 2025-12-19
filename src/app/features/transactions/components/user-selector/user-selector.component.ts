@@ -13,6 +13,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { TransactionFormComponent } from '../transaction-form/transaction-form.component';
 import { TransactionResultComponent } from '../transaction-result/transaction-result.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-selector',
@@ -23,6 +24,7 @@ import { TransactionResultComponent } from '../transaction-result/transaction-re
     MatIconModule,
     TransactionFormComponent,
     TransactionResultComponent,
+    TranslateModule,
   ],
   templateUrl: './user-selector.component.html',
 })
@@ -109,14 +111,14 @@ export class UserSelectorComponent implements OnInit, OnChanges {
         pages.push(i);
       }
     } else {
-      // Siempre mostrar la primera página
+      // Mostrar la primera página
       pages.push(1);
 
       let start: number;
       let end: number;
 
       if (this.currentPage <= 3) {
-        // Caso 1: Estamos cerca del inicio (páginas 1-3)
+        // Caso 1: Cerca del inicio de paginación
         start = 2;
         end = Math.min(4, this.totalPages - 1);
         for (let i = start; i <= end; i++) {
@@ -126,7 +128,7 @@ export class UserSelectorComponent implements OnInit, OnChanges {
           pages.push('...');
         }
       } else if (this.currentPage >= this.totalPages - 2) {
-        // Caso 2: Estamos cerca del final
+        // Caso 2: Cerca del final de paginación
         pages.push('...');
         start = Math.max(this.totalPages - 3, 2);
         end = this.totalPages - 1;
@@ -134,7 +136,7 @@ export class UserSelectorComponent implements OnInit, OnChanges {
           pages.push(i);
         }
       } else {
-        // Caso 3: Estamos en el medio
+        // Caso 3: En el medio de paginación
         pages.push('...');
         start = this.currentPage - 1;
         end = this.currentPage + 1;
@@ -144,7 +146,7 @@ export class UserSelectorComponent implements OnInit, OnChanges {
         pages.push('...');
       }
 
-      // Siempre mostrar la última página
+      // Siempre muestra la última página
       pages.push(this.totalPages);
     }
 
@@ -152,7 +154,7 @@ export class UserSelectorComponent implements OnInit, OnChanges {
   }
 
   goToPage(page: number | string): void {
-    // Ignorar si es string (los puntos suspensivos)
+    // Ignora si es string (los puntos suspensivos)
     if (typeof page !== 'number') {
       return;
     }
@@ -186,7 +188,7 @@ export class UserSelectorComponent implements OnInit, OnChanges {
     this.showToast('Transacción guardada correctamente');
   }
 
-  // Para iniciar una nueva transacción
+  // Inicia una nueva transacción
   startNewTransaction(userId: string): void {
     // Se limpia la transacción actual para este usuario
     this.userLastTransactionCus.delete(userId);
@@ -200,14 +202,14 @@ export class UserSelectorComponent implements OnInit, OnChanges {
     return this.userLastTransactionCus.get(userId);
   }
 
-  // Para verificar si el formulario debe mostrarse
+  // Vrifica si el formulario debe mostrarse
   shouldShowForm(userId: string): boolean {
     return (
       this.usersWithFormVisible.has(userId) && !this.getUserLastCus(userId)
     );
   }
 
-  // Para verificar si debe mostrarse el botón "Nueva transacción"
+  // Verifica si debe mostrarse el botón "Nueva transacción"
   shouldShowNewTransactionButton(userId: string): boolean {
     return (
       this.getUserLastCus(userId) !== undefined &&

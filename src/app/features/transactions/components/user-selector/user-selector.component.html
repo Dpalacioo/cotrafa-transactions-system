@@ -1,12 +1,12 @@
 <div class="mb-6">
   <h2 class="text-lg font-semibold mb-2 text-gray-900 dark:text-gray-100">
-    Seleccionar usuario
+    {{ "USER_SELECTION.TITLE" | translate }}
   </h2>
 
   <div class="mb-4">
     <input
       type="text"
-      placeholder="Buscar usuario por nombre, email o ciudad."
+      placeholder="{{ 'USER_SELECTION.SEARCH_PLACEHOLDER' | translate }}"
       class="w-full md:w-1/2 px-4 py-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
       (input)="onSearch($event)"
     />
@@ -16,7 +16,7 @@
     *ngIf="filteredUsers.length === 0"
     class="py-8 text-center text-gray-900 dark:text-gray-100"
   >
-    No hay resultados para la búsqueda actual
+    {{ "USER_SELECTION.NO_RESULTS" | translate }}
   </div>
 
   <mat-accordion
@@ -30,22 +30,22 @@
         <div
           class="py-3 px-4 text-left text-sm font-medium text-gray-700 dark:text-gray-300 w-2/5"
         >
-          Usuario
+          {{ "USER_SELECTION.TABLE_HEADERS.USER" | translate }}
         </div>
         <div
           class="py-3 px-4 text-left text-sm font-medium text-gray-700 dark:text-gray-300 w-1/5"
         >
-          Email
+          {{ "USER_SELECTION.TABLE_HEADERS.EMAIL" | translate }}
         </div>
         <div
           class="py-3 px-4 text-left text-sm font-medium text-gray-700 dark:text-gray-300 w-1/5"
         >
-          Ubicación
+          {{ "USER_SELECTION.TABLE_HEADERS.LOCATION" | translate }}
         </div>
         <div
           class="py-3 px-4 text-left text-sm font-medium text-gray-700 dark:text-gray-300 w-1/5"
         >
-          Teléfono
+          {{ "USER_SELECTION.TABLE_HEADERS.PHONE" | translate }}
         </div>
       </div>
     </div>
@@ -104,20 +104,17 @@
           *ngIf="selectedUserId === user.id"
           class="rounded-lg shadow p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 mt-2"
         >
-          <!-- Formulario solo visible si NO hay transacción reciente Y el usuario lo activó -->
           <app-transaction-form
             *ngIf="shouldShowForm(user.id)"
             (submitTransaction)="onTransactionSubmit($event, user.id)"
           ></app-transaction-form>
 
-          <!-- Resultado solo visible SI hay transacción reciente -->
           <app-transaction-result
             *ngIf="getUserLastCus(user.id) && !shouldShowForm(user.id)"
             [encryptedCus]="getUserLastCus(user.id)!.encrypted"
             [originalCus]="getUserLastCus(user.id)!.original"
           ></app-transaction-result>
 
-          <!-- Botón para nueva transacción (solo visible cuando hay resultado y no se está mostrando el formulario) -->
           <div
             *ngIf="shouldShowNewTransactionButton(user.id)"
             class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700"
@@ -126,7 +123,7 @@
               (click)="startNewTransaction(user.id)"
               class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
             >
-              Nueva transacción
+              {{ "USER_SELECTION.TRANSACTION.NEW" | translate }}
             </button>
           </div>
         </div>
@@ -138,30 +135,28 @@
     *ngIf="totalPages > 1 && filteredUsers.length > 0"
     class="flex flex-col md:flex-row md:items-center md:justify-between mt-4"
   >
-    <!-- Texto de resultados - centrado en móvil, izquierda en desktop -->
     <div
       class="mb-3 md:mb-0 text-gray-700 dark:text-gray-300 text-sm md:text-base text-center md:text-left"
     >
-      Mostrando
+      {{ "USER_SELECTION.PAGINATION.SHOWING" | translate }}
       <span class="font-semibold">{{ (currentPage - 1) * pageSize + 1 }}</span>
-      a
+      {{ "USER_SELECTION.PAGINATION.TO" | translate }}
       <span class="font-semibold">{{
         (currentPage - 1) * pageSize + paginatedUsers.length
       }}</span>
-      de
-      <span class="font-semibold">{{ filteredUsers.length }}</span> resultados
+      {{ "USER_SELECTION.PAGINATION.OF" | translate }}
+      <span class="font-semibold">{{ filteredUsers.length }}</span>
+      {{ "USER_SELECTION.PAGINATION.RESULTS" | translate }}
     </div>
-
-    <!-- Contenedor para el paginador -->
     <div class="w-full md:w-auto">
-      <!-- Versión para desktop (IGUAL AL ORIGINAL) -->
+      <!-- Versión para desktop -->
       <nav class="hidden md:inline-flex -space-x-px" aria-label="Pagination">
         <button
           (click)="goToPage(currentPage - 1)"
           [disabled]="currentPage === 1"
           class="px-3 py-1 rounded-l-lg border bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50"
         >
-          Anterior
+          {{ "USER_SELECTION.PAGINATION.PREVIOUS" | translate }}
         </button>
 
         <button
@@ -169,12 +164,10 @@
           (click)="goToPage(page)"
           class="px-3 py-1 border transition"
           [ngClass]="{
-    'bg-primary text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-500':
-      currentPage === page,
-    'bg-gray-50 dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700':
-      currentPage !== page && typeof page === 'number',
-    'bg-transparent border-transparent text-gray-500 dark:text-gray-400 cursor-default': page === '...'
-  }"
+            'bg-primary text-gray-900 dark:text-gray-100 border-gray-400 dark:border-gray-500': currentPage === page,
+            'bg-gray-50 dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700': currentPage !== page && typeof page === 'number',
+            'bg-transparent border-transparent text-gray-500 dark:text-gray-400 cursor-default': page === '...'
+          }"
           [disabled]="page === '...'"
         >
           {{ page }}
@@ -185,11 +178,11 @@
           [disabled]="currentPage === totalPages"
           class="px-3 py-1 rounded-r-lg border bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50"
         >
-          Siguiente
+          {{ "USER_SELECTION.PAGINATION.NEXT" | translate }}
         </button>
       </nav>
 
-      <!-- Versión para móvil - MÁS COMPACTA Y PROPORCIONAL -->
+      <!-- Versión para móvil -->
       <nav
         class="md:hidden flex items-center justify-center space-x-2"
         aria-label="Pagination"
@@ -198,7 +191,9 @@
           (click)="goToPage(currentPage - 1)"
           [disabled]="currentPage === 1"
           class="px-3 py-1.5 rounded-lg border bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 flex items-center text-sm"
-          aria-label="Página anterior"
+          [attr.aria-label]="
+            'USER_SELECTION.PAGINATION.PREVIOUS_ARIA' | translate
+          "
         >
           <svg
             class="w-4 h-4 mr-1"
@@ -213,16 +208,15 @@
               d="M15 19l-7-7 7-7"
             />
           </svg>
-          Anterior
+          {{ "USER_SELECTION.PAGINATION.PREVIOUS" | translate }}
         </button>
 
-        <!-- Indicador de página compacto -->
         <div
           class="px-3 py-1.5 border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 rounded-lg"
         >
           <span class="text-sm font-medium text-gray-700 dark:text-gray-300">
-            {{ currentPage
-            }}<span class="text-gray-500">/{{ totalPages }}</span>
+            {{ currentPage }}
+            <span class="text-gray-500">/{{ totalPages }}</span>
           </span>
         </div>
 
@@ -230,9 +224,9 @@
           (click)="goToPage(currentPage + 1)"
           [disabled]="currentPage === totalPages"
           class="px-3 py-1.5 rounded-lg border bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 flex items-center text-sm"
-          aria-label="Página siguiente"
+          [attr.aria-label]="'USER_SELECTION.PAGINATION.NEXT_ARIA' | translate"
         >
-          Siguiente
+          {{ "USER_SELECTION.PAGINATION.NEXT" | translate }}
           <svg
             class="w-4 h-4 ml-1"
             fill="none"
@@ -254,6 +248,6 @@
     *ngIf="toastMessage"
     class="fixed bottom-4 right-4 bg-green-900 text-white px-4 py-2 rounded-lg shadow-lg text-sm animate-fade-in z-50"
   >
-    {{ toastMessage }}
+    {{ "USER_SELECTION.TOAST.SUCCESS" | translate }}
   </div>
 </div>

@@ -6,11 +6,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-transaction-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, TranslateModule],
   templateUrl: './transaction-form.component.html',
   providers: [CurrencyPipe],
 })
@@ -36,10 +37,10 @@ export class TransactionFormComponent {
     const input = event.target as HTMLInputElement;
     const numericValue = Number(input.value.replace(/\D/g, ''));
 
-    // Actualizamos el valor numérico en el form control
+    // Actualiza el valor numérico en el form control
     this.form.controls['amount'].setValue(numericValue, { emitEvent: false });
 
-    // Actualizamos la vista del input formateada
+    // Actualiza la vista del input formateada
     input.value =
       this.currencyPipe.transform(numericValue, 'COP', '$', '1.0-0') || '';
   }

@@ -6,11 +6,17 @@ import { CusEncryptionService } from '../../../../core/services/cus-encryption.s
 import { Transaction } from '../../../../shared/models';
 import { TransactionsRepository } from '../../../../core/repositories/transactions-repository.service';
 import { TransactionsHistoryComponent } from '../../components/transactions-history/transactions-history.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-transactions',
   standalone: true,
-  imports: [CommonModule, UserSelectorComponent, TransactionsHistoryComponent],
+  imports: [
+    CommonModule,
+    UserSelectorComponent,
+    TransactionsHistoryComponent,
+    TranslateModule,
+  ],
   templateUrl: './transactions.component.html',
   styleUrls: ['./transactions.component.scss'],
 })
@@ -25,7 +31,8 @@ export class TransactionsComponent implements OnInit {
   constructor(
     public usersStore: UsersStore,
     private cusService: CusEncryptionService,
-    private transactionsRepo: TransactionsRepository
+    private transactionsRepo: TransactionsRepository,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -53,29 +60,29 @@ export class TransactionsComponent implements OnInit {
     this.processTransaction(event.amount, event.userId);
   }
 
-  // Mantener el método original por compatibilidad
+  // Mantiene el método original por compatibilidad
   onTransactionSubmit(amount: number): void {
     if (!this.selectedUserId) return;
     this.processTransaction(amount, this.selectedUserId);
   }
 
-  // Método común para procesar transacciones
+  // Método para procesar transacciones
   private processTransaction(amount: number, userId: string): void {
-    // Buscar usuario seleccionado
+    // Busca usuario seleccionado
     const user = this.usersStore.users().find((u) => u.id === userId);
     if (!user) return;
 
-    // Generar CUS
+    // Genera CUS
     const cusOriginal = this.cusService.generateCus(user.id);
     const cusEncrypted = this.cusService.encrypt(cusOriginal);
 
-    // Guardar en el Map para este usuario específico
+    // Guarda en el Map para este usuario específico
     this.userLastTransactionsCus.set(userId, {
       original: cusOriginal,
       encrypted: cusEncrypted,
     });
 
-    // Crear transacción
+    // Crea transacción
     const transaction: Transaction = {
       id: cusOriginal,
       user,
@@ -84,10 +91,10 @@ export class TransactionsComponent implements OnInit {
       createdAt: new Date(),
     };
 
-    // Guardar en repositorio local
+    // Guarda en repositorio local
     this.transactionsRepo.save(transaction);
     this.hasTransactions.set(true);
-    // Limpiar selección
+    // Limpia selección
     this.selectedUserId = null;
   }
 }

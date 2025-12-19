@@ -1,0 +1,77 @@
+{
+  "APP": {
+    "TITLE": "Sistema de Transacciones",
+    "LIGHT": "Claro",
+    "DARK": "Oscuro",
+    "LANGUAGE": "Idioma"
+  },
+  "USER_SELECTION": {
+    "TITLE": "Seleccionar usuario",
+    "SEARCH_PLACEHOLDER": "Buscar usuario por nombre, email o ciudad.",
+    "NO_RESULTS": "No hay resultados para la búsqueda actual",
+    "TABLE_HEADERS": {
+      "USER": "Usuario",
+      "EMAIL": "Email",
+      "LOCATION": "Ubicación",
+      "PHONE": "Teléfono"
+    },
+    "PAGINATION": {
+      "SHOWING": "Mostrando",
+      "TO": "a",
+      "OF": "de",
+      "RESULTS": "resultados",
+      "PREVIOUS": "Anterior",
+      "NEXT": "Siguiente",
+      "PAGE": "Página",
+      "PREVIOUS_ARIA": "Página anterior",
+      "NEXT_ARIA": "Página siguiente"
+    },
+    "TRANSACTION": {
+      "NEW": "Nueva transacción"
+    },
+    "TOAST": {
+      "SUCCESS": "Transacción creada exitosamente"
+    }
+  },
+  "TRANSACTION_FORM": {
+    "TITLE": "Monto de la transacción",
+    "AMOUNT_PLACEHOLDER": "Ingrese el monto",
+    "SUBMIT_BUTTON": "Simular Transacción",
+    "ERROR_REQUIRED": "El monto es obligatorio y debe ser mayor a 0"
+  },
+  "TRANSACTION_RESULT": {
+    "TITLE": "Resultado de la transacción",
+    "ENCRYPTED_CUS": "CUS encriptado",
+    "SHOW_ORIGINAL": "Ver CUS original",
+    "HIDE_ORIGINAL": "Ocultar CUS original"
+  },
+  "TRANSACTION_HISTORY": {
+    "TITLE": "Historial de Transacciones",
+    "NO_TRANSACTIONS": "No se han realizado transacciones aún.",
+    "TABLE_HEADERS": {
+      "USER": "Usuario",
+      "AMOUNT": "Monto",
+      "CUS": "CUS",
+      "DATE": "Fecha",
+      "ACTIONS": "Acciones"
+    },
+    "ACTIONS": {
+      "COPY_CUS": "Copiar CUS",
+      "DELETE_TRANSACTION": "Eliminar transacción"
+    },
+    "DELETE_MODAL": {
+      "TITLE": "Confirmar eliminación",
+      "MESSAGE": "¿Estás seguro de que deseas eliminar esta transacción? Esta acción no se puede deshacer.",
+      "CANCEL": "Cancelar",
+      "DELETE": "Eliminar"
+    },
+    "TOAST": {
+      "COPIED": "CUS copiado al portapapeles",
+      "DELETED": "Transacción eliminada exitosamente"
+    }
+  },
+  "TRANSACTIONS": {
+    "LOADING": "Cargando usuarios...",
+    "ERROR": "Error al cargar los usuarios"
+  }
+}
