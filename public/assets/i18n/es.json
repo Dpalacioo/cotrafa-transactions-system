@@ -75,12 +75,14 @@
     "ERROR": "Error al cargar los usuarios"
   },
   "FOOTER": {
-    "COPYRIGHT": "© {{year}} Cotrafa Transactions System",
+    "COPYRIGHT": "© {{year}} Cotrafa - Sistema de Transacciones",
     "DEVELOPED_BY": "Desarrollado por Daniel Palacio"
   },
   "MENU": {
     "TRANSACTIONS": "Transacciones",
     "HISTORY": "Historial",
-    "CONFIGURATION": "Configuración"
+    "CONFIGURATION": "Configuración",
+    "EXPAND": "Expandir menú",
+    "COLLAPSE": "Colapsar menú"
   }
 }

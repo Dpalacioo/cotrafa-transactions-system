@@ -9,7 +9,7 @@
     ></div>
 
     <aside
-      class="fixed md:relative top-0 left-0 h-screen md:h-auto bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 z-50 transition-all duration-300 md:translate-x-0 flex-shrink-0"
+      class="fixed md:relative top-0 left-0 h-[calc(100vh-4rem)] md:h-[calc(100vh-4rem)] w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 z-50 transition-all duration-300 md:translate-x-0 flex-shrink-0"
       [class.translate-x-0]="isSidebarOpen"
       [class.-translate-x-full]="!isSidebarOpen"
       [class.w-64]="!isSidebarCollapsed"
@@ -23,11 +23,15 @@
     </aside>
 
     <main
-      class="flex-1 p-4 md:p-6 overflow-auto bg-gray-50 dark:bg-gray-900 min-h-0 transition-all duration-300 pt-16"
+      class="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-900 min-h-0 transition-all duration-300"
+      style="max-height: calc(100vh - 4rem)"
     >
-      <router-outlet></router-outlet>
+      <div class="p-4 md:p-6">
+        <router-outlet></router-outlet>
+      </div>
     </main>
   </div>
 
+  <!-- Footer sticky -->
   <app-footer></app-footer>
 </div>

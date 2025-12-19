@@ -14,7 +14,9 @@
     <button
       (click)="onToggleCollapse()"
       class="hidden md:flex p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 transition-colors"
-      [title]="collapsed ? 'Expandir menú' : 'Colapsar menú'"
+      [title]="
+        collapsed ? ('MENU.EXPAND' | translate) : ('MENU.COLLAPSE' | translate)
+      "
     >
       <mat-icon [class.rotate-180]="collapsed">chevron_left</mat-icon>
     </button>
@@ -34,18 +36,18 @@
         [class.w-0]="collapsed"
         [class.overflow-hidden]="collapsed"
       >
-        Transacciones
+        {{ "MENU.TRANSACTIONS" | translate }}
       </span>
       <span
         *ngIf="collapsed"
         class="absolute left-16 ml-2 px-2 py-1 bg-gray-900 dark:bg-gray-700 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity z-50 whitespace-nowrap"
       >
-        Transacciones
+        {{ "MENU.TRANSACTIONS" | translate }}
       </span>
     </a>
 
     <a
-      routerLink="/transactions"
+      routerLink="/history"
       routerLinkActive="bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400"
       (click)="onNavClick()"
       class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors group"
@@ -57,13 +59,13 @@
         [class.w-0]="collapsed"
         [class.overflow-hidden]="collapsed"
       >
-        Historial
+        {{ "MENU.HISTORY" | translate }}
       </span>
       <span
         *ngIf="collapsed"
         class="absolute left-16 ml-2 px-2 py-1 bg-gray-900 dark:bg-gray-700 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity z-50 whitespace-nowrap"
       >
-        Historial
+        {{ "MENU.HISTORY" | translate }}
       </span>
     </a>
   </nav>
@@ -77,7 +79,7 @@
       [class.h-0]="collapsed"
       [class.overflow-hidden]="collapsed"
     >
-      Configuración
+      {{ "MENU.CONFIGURATION" | translate }}
     </h3>
 
     <button
@@ -93,7 +95,11 @@
         [class.w-0]="collapsed"
         [class.overflow-hidden]="collapsed"
       >
-        {{ themeService.theme() === "dark" ? "Claro" : "Oscuro" }}
+        {{
+          themeService.theme() === "dark"
+            ? ("APP.LIGHT" | translate)
+            : ("APP.DARK" | translate)
+        }}
       </span>
       <span
         *ngIf="collapsed"
@@ -101,11 +107,12 @@
       >
         {{
           themeService.theme() === "dark"
-            ? "Cambiar a claro"
-            : "Cambiar a oscuro"
+            ? ("APP.SWITCH_TO_LIGHT" | translate)
+            : ("APP.SWITCH_TO_DARK" | translate)
         }}
       </span>
     </button>
+
     <button
       (click)="languageService.toggleLanguage()"
       class="flex items-center gap-3 p-3 w-full rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors mt-2 group relative"
@@ -117,7 +124,7 @@
         [class.w-0]="collapsed"
         [class.overflow-hidden]="collapsed"
       >
-        Idioma
+        {{ "APP.LANGUAGE" | translate }}
       </span>
       <span
         class="uppercase text-sm font-bold bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded min-w-[2rem] text-center transition-all duration-300"
@@ -129,7 +136,8 @@
         *ngIf="collapsed"
         class="absolute left-16 ml-2 px-2 py-1 bg-gray-900 dark:bg-gray-700 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity z-50 whitespace-nowrap"
       >
-        Idioma: {{ languageService.currentLanguage() }}
+        {{ "APP.LANGUAGE" | translate }}:
+        {{ languageService.currentLanguage() }}
       </span>
     </button>
   </div>
