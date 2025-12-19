@@ -181,13 +181,12 @@ El proyecto cuenta con una base sólida de pruebas automatizadas ejecutadas con 
 <img width="302" height="544" alt="image" src="https://github.com/user-attachments/assets/67dd4648-75b4-4f6f-b72f-a19a09ec49c6" />
 
 </div>
----
 
 ## 🚀 Instalación y ejecución
 
 ```bash
 # Clonar el repositorio
-git clone [https://github.com/Dpalacioo/cotrafa-transactions-system.git](https://github.com/Dpalacioo/cotrafa-transactions-system.git)
+git clone https://github.com/Dpalacioo/cotrafa-transactions-system.git
 cd cotrafa-transactions-system
 
 # Instalar dependencias
