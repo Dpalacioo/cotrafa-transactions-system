@@ -1,0 +1,136 @@
+<div class="h-full flex flex-col">
+  <div
+    class="p-4 border-b border-gray-200 dark:border-gray-700 flex-shrink-0 flex items-center justify-between"
+  >
+    <h2
+      class="text-lg font-semibold text-gray-800 dark:text-gray-200 transition-opacity duration-300"
+      [class.opacity-0]="collapsed"
+      [class.w-0]="collapsed"
+      [class.overflow-hidden]="collapsed"
+    >
+      Menú
+    </h2>
+
+    <button
+      (click)="onToggleCollapse()"
+      class="hidden md:flex p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 transition-colors"
+      [title]="collapsed ? 'Expandir menú' : 'Colapsar menú'"
+    >
+      <mat-icon [class.rotate-180]="collapsed">chevron_left</mat-icon>
+    </button>
+  </div>
+
+  <nav class="flex-1 overflow-y-auto p-2 space-y-2">
+    <a
+      routerLink="/transactions"
+      routerLinkActive="bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400"
+      (click)="onNavClick()"
+      class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors group"
+    >
+      <mat-icon class="flex-shrink-0">payments</mat-icon>
+      <span
+        class="font-medium transition-all duration-300"
+        [class.opacity-0]="collapsed"
+        [class.w-0]="collapsed"
+        [class.overflow-hidden]="collapsed"
+      >
+        Transacciones
+      </span>
+      <span
+        *ngIf="collapsed"
+        class="absolute left-16 ml-2 px-2 py-1 bg-gray-900 dark:bg-gray-700 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity z-50 whitespace-nowrap"
+      >
+        Transacciones
+      </span>
+    </a>
+
+    <a
+      routerLink="/transactions"
+      routerLinkActive="bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400"
+      (click)="onNavClick()"
+      class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors group"
+    >
+      <mat-icon class="flex-shrink-0">history</mat-icon>
+      <span
+        class="font-medium transition-all duration-300"
+        [class.opacity-0]="collapsed"
+        [class.w-0]="collapsed"
+        [class.overflow-hidden]="collapsed"
+      >
+        Historial
+      </span>
+      <span
+        *ngIf="collapsed"
+        class="absolute left-16 ml-2 px-2 py-1 bg-gray-900 dark:bg-gray-700 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity z-50 whitespace-nowrap"
+      >
+        Historial
+      </span>
+    </a>
+  </nav>
+
+  <div
+    class="p-2 border-t border-gray-200 dark:border-gray-700 flex-shrink-0 bg-white dark:bg-gray-800"
+  >
+    <h3
+      class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-3 transition-all duration-300"
+      [class.opacity-0]="collapsed"
+      [class.h-0]="collapsed"
+      [class.overflow-hidden]="collapsed"
+    >
+      Configuración
+    </h3>
+
+    <button
+      (click)="themeService.toggle()"
+      class="flex items-center gap-3 p-3 w-full rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors group relative"
+    >
+      <mat-icon class="flex-shrink-0">
+        {{ themeService.theme() === "dark" ? "light_mode" : "dark_mode" }}
+      </mat-icon>
+      <span
+        class="flex-1 text-left font-medium transition-all duration-300"
+        [class.opacity-0]="collapsed"
+        [class.w-0]="collapsed"
+        [class.overflow-hidden]="collapsed"
+      >
+        {{ themeService.theme() === "dark" ? "Claro" : "Oscuro" }}
+      </span>
+      <span
+        *ngIf="collapsed"
+        class="absolute left-16 ml-2 px-2 py-1 bg-gray-900 dark:bg-gray-700 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity z-50 whitespace-nowrap"
+      >
+        {{
+          themeService.theme() === "dark"
+            ? "Cambiar a claro"
+            : "Cambiar a oscuro"
+        }}
+      </span>
+    </button>
+    <button
+      (click)="languageService.toggleLanguage()"
+      class="flex items-center gap-3 p-3 w-full rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors mt-2 group relative"
+    >
+      <mat-icon class="flex-shrink-0">language</mat-icon>
+      <span
+        class="flex-1 text-left font-medium transition-all duration-300"
+        [class.opacity-0]="collapsed"
+        [class.w-0]="collapsed"
+        [class.overflow-hidden]="collapsed"
+      >
+        Idioma
+      </span>
+      <span
+        class="uppercase text-sm font-bold bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded min-w-[2rem] text-center transition-all duration-300"
+        [class.opacity-0]="collapsed"
+      >
+        {{ languageService.currentLanguage() }}
+      </span>
+      <span
+        *ngIf="collapsed"
+        class="absolute left-16 ml-2 px-2 py-1 bg-gray-900 dark:bg-gray-700 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity z-50 whitespace-nowrap"
+      >
+        Idioma: {{ languageService.currentLanguage() }}
+      </span>
+    </button>
+  </div>
+</div>

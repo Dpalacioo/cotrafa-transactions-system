@@ -36,7 +36,7 @@
   "TRANSACTION_FORM": {
     "TITLE": "Monto de la transacción",
     "AMOUNT_PLACEHOLDER": "Ingrese el monto",
-    "SUBMIT_BUTTON": "Simular Transacción",
+    "SUBMIT_BUTTON": "Realizar Transacción",
     "ERROR_REQUIRED": "El monto es obligatorio y debe ser mayor a 0"
   },
   "TRANSACTION_RESULT": {
@@ -73,5 +73,14 @@
   "TRANSACTIONS": {
     "LOADING": "Cargando usuarios...",
     "ERROR": "Error al cargar los usuarios"
+  },
+  "FOOTER": {
+    "COPYRIGHT": "© {{year}} Cotrafa Transactions System",
+    "DEVELOPED_BY": "Desarrollado por Daniel Palacio"
+  },
+  "MENU": {
+    "TRANSACTIONS": "Transacciones",
+    "HISTORY": "Historial",
+    "CONFIGURATION": "Configuración"
   }
 }
