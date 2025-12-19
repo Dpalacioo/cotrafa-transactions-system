@@ -153,25 +153,34 @@ El proyecto cuenta con una base sólida de pruebas automatizadas ejecutadas con 
 
 ## 📸 Demo Visual
 
-### 🎥 Funcionamiento en Vivo
-
-Aquí puedes ver una demostración rápida del flujo de transacciones, la generación de CUS y el cambio de tema (Dark Mode).
-
-> **Nota:** Si el video no se reproduce automáticamente, puedes descargarlo [aquí](URL_DE_TU_VIDEO).
-
-https://github.com/user-attachments/assets/tu-video-id-generado
-
 ### 🖼️ Capturas de Pantalla
-
+<p align="center">
+  <em>Interfaz limpia, adaptada a modo light.</em>
+</p>
 <div align="center">
-  <img src="URL_IMAGEN_HOME" width="45%" alt="Dashboard Principal" />
-  <img src="URL_IMAGEN_HISTORIAL" width="45%" alt="Historial de Transacciones" />
+<img width="48%" src="https://github.com/user-attachments/assets/79c93214-42fc-4e21-acc9-539917c66f6e" />
+<img width="48%" height="641" alt="image" src="https://github.com/user-attachments/assets/04476c1b-1361-4f20-98c2-d5dc7b56f307" />
+<img width="48%" height="641" alt="image" src="https://github.com/user-attachments/assets/019b74bf-028a-4885-8298-c2187bb864d1" />
+<img width="48%" height="635" alt="image" src="https://github.com/user-attachments/assets/ce9e7794-1056-4d9a-8a35-f1d7ffd4cdff" />
+<img width="48%" height="637" alt="image" src="https://github.com/user-attachments/assets/8d0c9329-adc6-459a-b806-2d71cf104cea" />
+<img width="48%" height="634" alt="image" src="https://github.com/user-attachments/assets/f8f2cf3a-f359-4972-8921-5bc624f57a34" />
+<img width="48%" height="637" alt="image" src="https://github.com/user-attachments/assets/da5a923e-6167-40c0-a742-0514fb43d258" />
+<img width="1349" height="435" alt="image" src="https://github.com/user-attachments/assets/6187bbba-8c49-4dc0-9f31-b3e43bbbcdf6" />
+
 </div>
 
 <p align="center">
-  <em>Interfaz limpia, responsiva y adaptada a modo oscuro.</em>
+  <em>Interfaz limpia, adaptada a modo oscuro, responsive, traducción y funcionalidad extra como eliminar.</em>
 </p>
+<div align="center">
+<img width="1348" height="630" alt="image" src="https://github.com/user-attachments/assets/b2e54383-ca78-4542-aaca-eb3d3a51d93c" />
+<img width="1350" height="627" alt="image" src="https://github.com/user-attachments/assets/da0649ee-b6f4-422d-805f-d7dc9f10cb60" />
+<img width="1351" height="626" alt="image" src="https://github.com/user-attachments/assets/f63036c6-9624-4994-a50d-736e14e3f5ce" />
+<img width="1364" height="632" alt="image" src="https://github.com/user-attachments/assets/8b732088-4baf-4840-b9bc-ad5bb3fa08e3" />
+<img width="1346" height="634" alt="image" src="https://github.com/user-attachments/assets/e23a6d44-ca11-4871-a24f-4d3550e7766e" />
+<img width="302" height="544" alt="image" src="https://github.com/user-attachments/assets/67dd4648-75b4-4f6f-b72f-a19a09ec49c6" />
 
+</div>
 ---
 
 ## 🚀 Instalación y ejecución
