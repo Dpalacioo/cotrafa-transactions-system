@@ -19,31 +19,28 @@
     {{ "USER_SELECTION.NO_RESULTS" | translate }}
   </div>
 
-  <mat-accordion
-    *ngIf="paginatedUsers.length > 0"
-    class="overflow-x-auto lg:overflow-x-visible"
-  >
+  <mat-accordion *ngIf="paginatedUsers.length > 0">
     <div
-      class="min-w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-t-lg shadow table-fixed"
+      class="hidden md:block min-w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-t-lg shadow table-fixed"
     >
       <div class="bg-gray-50 dark:bg-gray-800 flex">
         <div
-          class="py-3 px-4 text-left text-sm font-medium text-gray-700 dark:text-gray-300 w-2/5"
+          class="py-3 px-4 w-2/5 text-sm font-medium text-gray-700 dark:text-gray-300"
         >
           {{ "USER_SELECTION.TABLE_HEADERS.USER" | translate }}
         </div>
         <div
-          class="py-3 px-4 text-left text-sm font-medium text-gray-700 dark:text-gray-300 w-1/5"
+          class="py-3 px-4 w-1/5 text-sm font-medium text-gray-700 dark:text-gray-300"
         >
           {{ "USER_SELECTION.TABLE_HEADERS.EMAIL" | translate }}
         </div>
         <div
-          class="py-3 px-4 text-left text-sm font-medium text-gray-700 dark:text-gray-300 w-1/5"
+          class="py-3 px-4 w-1/5 text-sm font-medium text-gray-700 dark:text-gray-300"
         >
           {{ "USER_SELECTION.TABLE_HEADERS.LOCATION" | translate }}
         </div>
         <div
-          class="py-3 px-4 text-left text-sm font-medium text-gray-700 dark:text-gray-300 w-1/5"
+          class="py-3 px-4 w-1/5 text-sm font-medium text-gray-700 dark:text-gray-300"
         >
           {{ "USER_SELECTION.TABLE_HEADERS.PHONE" | translate }}
         </div>
@@ -59,37 +56,47 @@
       [class.ring-primary]="selectedUserId === user.id"
     >
       <mat-expansion-panel-header
-        class="!p-0 !h-auto !min-h-0 hover:!bg-gray-50 dark:hover:!bg-gray-800 !bg-transparent"
+        class="!p-0 !min-h-[132px] md:!min-h-0 hover:!bg-gray-50 dark:hover:!bg-gray-800 !bg-transparent"
         (click)="selectUser(user.id); $event.stopPropagation()"
       >
-        <div class="flex w-full cursor-pointer">
-          <div class="py-1 px-4 w-2/5 flex items-center">
+        <div
+          class="flex w-full px-4 py-4 gap-4 md:gap-0 border-b border-gray-200 dark:border-gray-700 md:border-0"
+        >
+          <div class="flex items-center gap-3 md:w-2/5 w-full">
             <img
               *ngIf="user.picture"
               [src]="user.picture"
-              alt="{{ user.name }}"
-              class="w-8 h-8 rounded-full mr-4 flex-shrink-0"
+              class="w-8 h-8 rounded-full flex-shrink-0"
             />
-            <div class="flex-1 min-w-0">
+
+            <div class="min-w-0">
               <p class="font-medium truncate text-gray-900 dark:text-gray-100">
                 {{ user.name }}
               </p>
+
+              <div
+                class="md:hidden text-sm text-gray-600 dark:text-gray-400 space-y-1 mt-2"
+              >
+                <p>{{ user.email }}</p>
+                <p>{{ user.city }}, {{ user.country }}</p>
+                <p>{{ user.phone }}</p>
+              </div>
             </div>
           </div>
 
-          <div class="py-4 px-4 w-1/5 flex items-center">
+          <div class="hidden md:flex md:w-1/5 items-center px-4">
             <p class="text-sm truncate text-gray-600 dark:text-gray-400">
               {{ user.email }}
             </p>
           </div>
 
-          <div class="py-4 px-4 w-1/5 flex items-center">
+          <div class="hidden md:flex md:w-1/5 items-center px-4">
             <p class="text-sm truncate text-gray-600 dark:text-gray-400">
               {{ user.city }}, {{ user.country }}
             </p>
           </div>
 
-          <div class="py-4 px-4 w-1/5 flex items-center">
+          <div class="hidden md:flex md:w-1/5 items-center px-4">
             <p class="text-sm truncate text-gray-600 dark:text-gray-400">
               {{ user.phone }}
             </p>
@@ -97,9 +104,7 @@
         </div>
       </mat-expansion-panel-header>
 
-      <div
-        class="border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50"
-      >
+      <div class="bg-gray-50 dark:bg-gray-800/50">
         <div
           *ngIf="selectedUserId === user.id"
           class="rounded-lg shadow p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 mt-2"
@@ -121,7 +126,7 @@
           >
             <button
               (click)="startNewTransaction(user.id)"
-              class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+              class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium"
             >
               {{ "USER_SELECTION.TRANSACTION.NEW" | translate }}
             </button>
@@ -131,6 +136,7 @@
     </mat-expansion-panel>
   </mat-accordion>
 
+  <!-- Paginador -->
   <div
     *ngIf="totalPages > 1 && filteredUsers.length > 0"
     class="flex flex-col md:flex-row md:items-center md:justify-between mt-4"

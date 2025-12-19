@@ -11,7 +11,7 @@
     "NO_RESULTS": "No hay resultados para la búsqueda actual",
     "TABLE_HEADERS": {
       "USER": "Usuario",
-      "EMAIL": "Email",
+      "EMAIL": "Correo electrónico",
       "LOCATION": "Ubicación",
       "PHONE": "Teléfono"
     },
